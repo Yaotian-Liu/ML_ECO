@@ -1,0 +1,6 @@
+{
+    "editor.formatOnSave": true,
+    "editor.fontLigatures": true,
+    "files.trimTrailingWhitespace": false,
+    "editor.wordWrap": "on"
+}

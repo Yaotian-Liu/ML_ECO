@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "by-gdb",
+            "request": "launch",
+            "name": "Launch(gdb)",
+            "program": "${workspaceFolder}/eq_extract/eq_extract",
+            "cwd": "${workspaceFolder}/eq_extract"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Launch(lldb)",
+            "program": "${workspaceFolder}/eq_extract/eq_extract",
+            "args": [],
+            "cwd": "${workspaceFolder}/eq_extract",
+            // "console": "integratedTerminal"
+        }
+    ]
+}
