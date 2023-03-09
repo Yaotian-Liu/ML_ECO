@@ -9,7 +9,8 @@
             "request": "launch",
             "name": "Launch(gdb)",
             "program": "${workspaceFolder}/eq_extract/eq_extract",
-            "cwd": "${workspaceFolder}/eq_extract"
+            "cwd": "${workspaceFolder}/eq_extract",
+            "preLaunchTask": "build"
         },
         {
             "type": "lldb",
@@ -18,6 +19,7 @@
             "program": "${workspaceFolder}/eq_extract/eq_extract",
             "args": [],
             "cwd": "${workspaceFolder}/eq_extract",
+            "preLaunchTask": "build"
             // "console": "integratedTerminal"
         }
     ]
