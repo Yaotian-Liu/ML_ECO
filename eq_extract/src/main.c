@@ -1,30 +1,28 @@
-#include "eco.h"
+#include "eq_extract.h"
 
 int main(int argc, char **argv) {
-    int i, j;
     Abc_Start();
-    // Cmd_CommandExecute(Abc_FrameGetGlobalFrame(), "read ../unit1/G.v;
-    // print_stats;");
-    char F[] = "/home/henry/repos/abc/unit1/F.v";
-    char G[] = "/home/henry/repos/abc/mytb/tri.v";
 
-    // char F[] = "/home/henry/repos/abc/ECO_benchmarks/old_verilog/design10.v";
-    // char G[] = "/home/henry/repos/abc/ECO_benchmarks/new_verilog/design10.v";
+    char tri[] = "../mytb/tri.v";
+    char tri_m[] = "../mytb/tri_modified.v";
 
-    Abc_Ntk_t *pF = Io_Read(F, IO_FILE_VERILOG, 1, 0);
-    Abc_Ntk_t *pG = Io_Read(G, IO_FILE_VERILOG, 1, 0);
+    Abc_Ntk_t *pTri = Io_Read(tri, IO_FILE_VERILOG, 1, 0);
+    Abc_Ntk_t *pTriM = Io_Read(tri_m, IO_FILE_VERILOG, 1, 0);
 
-    assert(Abc_NtkIsDfsOrdered(pG));
+    PrintAllObj(pTri);
 
-    Vec_Ptr_t *vNodes = Abc_NtkDfsReverse(pG);
+    printf("For %s: \n", tri_m);
+    PrintAllObj(pTriM);
 
-    Abc_Obj_t *pNode;
-    Vec_PtrForEachEntry(Abc_Obj_t *, vNodes, pNode, i) {
-        printf("Name: %s ,\tLevel: %d, \t type: %d \n", Abc_ObjName(pNode), pNode->Level, pNode->Type);
-    }
+    DressRenameNtk(pTri, pTriM);
 
-    // printf("Po num: %d \n", Abc_NtkPoNum(pNtk));
-    // printf("Po num: %d \n", Abc_NtkCoNum(pNtk));
+    UnEq_SubNtk_t UnEqSubNtk = RunEqExtract(pTri, pTriM);
+
+    printf("OUT: \n");
+    PrintAllObj(UnEqSubNtk.pSubNtk1);
+
+    // Abc_Ntk_t *pOut = Abc_NtkStrash(UnEqSubNtk.pSubNtk1, 1, 0, 0);
+    // Io_WriteVerilog(pOut, "out.v", 0);
 
     return 0;
 }
