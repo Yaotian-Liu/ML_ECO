@@ -1,0 +1,13 @@
+If:
+  PathMatch: ./eq_extract/.*
+
+CompileFlags:
+  CompilationDatabase: ./eq_extract
+
+---
+
+If:
+  PathMatch: ./abc/.*
+
+CompileFlags:
+  CompilationDatabase: ./abc

@@ -2,5 +2,13 @@
     "editor.formatOnSave": true,
     "editor.fontLigatures": true,
     "files.trimTrailingWhitespace": false,
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    // "clangd.arguments": [
+    //     "--header-insertion=never",
+    //     "--completion-style=detailed",
+    //     "--all-scopes-completion",
+    //     "--clang-tidy",
+    //     "--compile-commands-dir=/home/henry/repos/ML_ECO/eq_extract",
+    //     "--compile-commands-dir=/home/henry/repos/ML_ECO/abc",
+    // ]
 }
