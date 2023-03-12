@@ -15,7 +15,8 @@ struct UnEq_SubNtk_t_ {
 void DressRenameNtk(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2);
 
 UnEq_SubNtk_t RunEqExtract(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2);
-Abc_Ntk_t *BuildNtk(Abc_Ntk_t *pOldNtk, Vec_Ptr_t *vPi, Vec_Ptr_t *vNodes);
+Abc_Ntk_t *BuildNtk(char *NtkName, Abc_Ntk_t *pOldNtk, Vec_Ptr_t *vPi,
+                    Vec_Ptr_t *vNodes);
 
 // ----- traverse.c -----
 void TraverseNtk1(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2, Vec_Ptr_t *vNamedNodes,
@@ -27,6 +28,6 @@ void TraverseNtk2(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2, Vec_Ptr_t *vCpNodes,
 Abc_Obj_t *FindNodeByName(const char *nodeName, Abc_Ntk_t *pNtk);
 int HasName(Abc_Obj_t *pNode, Abc_Ntk_t *pNtk);
 int HasCp(Abc_Obj_t *pNode);
-void PrintAllObj(Abc_Ntk_t *pNtk);
+void PrintAllObj(Abc_Ntk_t *pNtk, int fVerbose);
 
 #endif

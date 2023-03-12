@@ -34,5 +34,7 @@ target("eq_extract")
     add_defines("ABC_USE_READLINE")
     add_defines("ABC_USE_PTHREADS")
 
+    add_includedirs("src/")
     add_headerfiles("src/**.h")
     add_files("src/**.c")
+    add_files("main.c")

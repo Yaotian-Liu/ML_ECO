@@ -25,6 +25,9 @@ void DressRenameNtk(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2) {
  * @return UnEq_SubNtk_t
  */
 UnEq_SubNtk_t RunEqExtract(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2) {
+    // Run `dress`.
+    DressRenameNtk(pNtk1, pNtk2);
+
     Vec_Ptr_t *vNamedNodes = Vec_PtrAlloc(100);
     Vec_Ptr_t *vCpNodes = Vec_PtrAlloc(100);
     Vec_Ptr_t *vColNodes1 = Vec_PtrAlloc(100);
@@ -33,8 +36,8 @@ UnEq_SubNtk_t RunEqExtract(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2) {
     TraverseNtk1(pNtk1, pNtk2, vNamedNodes, vColNodes1);
     TraverseNtk2(pNtk1, pNtk2, vCpNodes, vColNodes2);
 
-    Abc_Ntk_t *pNtkNew1 = BuildNtk(pNtk1, vNamedNodes, vColNodes1);
-    Abc_Ntk_t *pNtkNew2 = BuildNtk(pNtk2, vCpNodes, vColNodes2);
+    Abc_Ntk_t *pNtkNew1 = BuildNtk("NtkNew1", pNtk1, vNamedNodes, vColNodes1);
+    Abc_Ntk_t *pNtkNew2 = BuildNtk("NtkNew2", pNtk2, vCpNodes, vColNodes2);
 
     UnEq_SubNtk_t UnEqSubNtk = {pNtkNew1, pNtkNew2};
 
@@ -49,18 +52,19 @@ UnEq_SubNtk_t RunEqExtract(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2) {
  * @param vNodes
  * @return Abc_Ntk_t*
  */
-Abc_Ntk_t *BuildNtk(Abc_Ntk_t *pNtkOld, Vec_Ptr_t *vPi, Vec_Ptr_t *vNodes) {
+Abc_Ntk_t *BuildNtk(char *NtkName, Abc_Ntk_t *pNtkOld, Vec_Ptr_t *vPi,
+                    Vec_Ptr_t *vNodes) {
     Abc_Ntk_t *pNtkNew = Abc_NtkAlloc(ABC_NTK_LOGIC, ABC_FUNC_AIG, 1);
+    pNtkNew->pName = Extra_UtilStrsav(NtkName);
 
     Abc_Obj_t *pNode;
     int i;
 
-    // Connect Pi to vPi nodes.
+    // Create Pis
     Vec_PtrForEachEntry(Abc_Obj_t *, vPi, pNode, i) {
         Abc_Obj_t *pPi = Abc_NtkCreatePi(pNtkNew);
-        Abc_Obj_t *pNodeNew = Abc_NtkDupObj(pNtkNew, pNode, 0);
-        Abc_ObjRemoveFanins(pNodeNew);
-        Abc_ObjAddFanin(pNodeNew, pPi);
+        Abc_ObjAssignName(pPi, Abc_ObjName(pNode), NULL);
+        pNode->pCopy = pPi;
     }
 
     // Duplicate all nodes.
@@ -78,8 +82,12 @@ Abc_Ntk_t *BuildNtk(Abc_Ntk_t *pNtkOld, Vec_Ptr_t *vPi, Vec_Ptr_t *vNodes) {
     Abc_Obj_t *pCo;
     Abc_NtkForEachCo(pNtkOld, pCo, i) {
         Abc_NtkDupObj(pNtkNew, pCo, 0);
+        Abc_ObjAssignName(pCo->pCopy, Abc_ObjName(pCo), "_po");
         Abc_ObjAddFanin(pCo->pCopy, Abc_ObjFanin0(pCo)->pCopy);
     }
+
+    if (!Abc_NtkCheck(pNtkNew))
+        printf("BuildNtk(): Network check has failed.\n");
 
     return pNtkNew;
 }

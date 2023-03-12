@@ -3,8 +3,8 @@
 
 #include "base/main/main.h"
 #include "base/main/mainInt.h"
-#include "base/wlc/wlc.h"
-#include "base/wln/wln.h"
+// #include "base/wlc/wlc.h"
+// #include "base/wln/wln.h"
 #include "misc/nm/nmInt.h"
 #include "sat/bsat/satSolver.h"
 #include "sat/cnf/cnf.h"
@@ -19,7 +19,5 @@ extern void Abc_NtkDressPrintStats(Vec_Ptr_t* vRes, int nNodes0, int nNodes1,
 
 extern void Abc_NtkDress2Transfer(Abc_Ntk_t* pNtk0, Abc_Ntk_t* pNtk1,
                                   Vec_Ptr_t* vRes, int fVerbose);
-
-extern void Wlc_NtkShow(Wlc_Ntk_t* p, Vec_Int_t* vBold);
 
 #endif
