@@ -8,6 +8,10 @@ This project is currently under construction. Check back later for updates!
 
 ## Usage
 
+### Equivalence Extractor
+
+![Equivalence Extractor](assets/extract_eq.excalidraw.png)
+
 Equivalence Extractor is based on [ABC](https://people.eecs.berkeley.edu/~alanmi/abc/).
 
 ```
