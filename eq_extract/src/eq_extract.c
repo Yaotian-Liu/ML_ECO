@@ -29,15 +29,15 @@ UnEq_SubNtk_t RunEqExtract(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2) {
     DressRenameNtk(pNtk1, pNtk2);
 
     Vec_Ptr_t *vNamedNodes = Vec_PtrAlloc(100);
-    Vec_Ptr_t *vCpNodes = Vec_PtrAlloc(100);
+    Vec_Ptr_t *vCorrNodes = Vec_PtrAlloc(100);
     Vec_Ptr_t *vColNodes1 = Vec_PtrAlloc(100);
     Vec_Ptr_t *vColNodes2 = Vec_PtrAlloc(100);
 
     TraverseNtk1(pNtk1, pNtk2, vNamedNodes, vColNodes1);
-    TraverseNtk2(pNtk1, pNtk2, vCpNodes, vColNodes2);
+    TraverseNtk2(pNtk1, pNtk2, vCorrNodes, vColNodes2);
 
     Abc_Ntk_t *pNtkNew1 = BuildNtk("NtkNew1", pNtk1, vNamedNodes, vColNodes1);
-    Abc_Ntk_t *pNtkNew2 = BuildNtk("NtkNew2", pNtk2, vCpNodes, vColNodes2);
+    Abc_Ntk_t *pNtkNew2 = BuildNtk("NtkNew2", pNtk2, vCorrNodes, vColNodes2);
 
     UnEq_SubNtk_t UnEqSubNtk = {pNtkNew1, pNtkNew2};
 

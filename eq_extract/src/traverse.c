@@ -44,16 +44,16 @@ void TraverseNtk1(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2, Vec_Ptr_t *vNamedNodes,
             lastLevel = nodeLevel;
             Vec_PtrPush(vNamedNodes, pNode);
 
-            // Set cp of both nodes.
+            // Set cp and corr mark.
             pNode->pCopy = FindNodeByName(Abc_ObjName(pNode), pNtk2);
-            pNode->pCopy->pCopy = pNode;
+            pNode->pCopy->fMarkC = 1;
 
             fNormalCollect = 0;
         }
     }
 }
 
-void TraverseNtk2(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2, Vec_Ptr_t *vCpNodes,
+void TraverseNtk2(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2, Vec_Ptr_t *vCorrNodes,
                   Vec_Ptr_t *vColNodes_2) {
     Abc_Obj_t *pNode;
     int i;
@@ -77,8 +77,8 @@ void TraverseNtk2(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2, Vec_Ptr_t *vCpNodes,
             }
         }
 
-        // Do not has cp
-        if (!HasCp(pNode)) {
+        // Do not has corr
+        if (!HasCorrNode(pNode)) {
             // Red loop
             if (fNormalCollect) {
                 Vec_PtrPush(vColNodes_2, pNode);
@@ -91,11 +91,13 @@ void TraverseNtk2(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2, Vec_Ptr_t *vCpNodes,
             }
         }
 
-        // Has cp
+        // Has corr
         else {
             // update last named level & collect
             lastLevel = nodeLevel;
-            Vec_PtrPush(vCpNodes, pNode);
+            pNode->fMarkC = 0;
+
+            Vec_PtrPush(vCorrNodes, pNode);
 
             fNormalCollect = 0;
         }

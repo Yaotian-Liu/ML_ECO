@@ -20,7 +20,7 @@ int HasName(Abc_Obj_t *pNode, Abc_Ntk_t *pNtk) {
     return Nm_ManTableLookupId(pNtk->pManName, pNode->Id) ? true : false;
 }
 
-int HasCp(Abc_Obj_t *pNode) { return pNode->pCopy ? true : false; }
+int HasCorrNode(Abc_Obj_t *pNode) { return pNode->fMarkC ? true : false; }
 
 void PrintAllObj(Abc_Ntk_t *pNtk, int fVerbose) {
     Abc_Obj_t *pObj;
