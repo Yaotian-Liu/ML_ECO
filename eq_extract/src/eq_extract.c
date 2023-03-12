@@ -41,6 +41,11 @@ UnEq_SubNtk_t RunEqExtract(Abc_Ntk_t *pNtk1, Abc_Ntk_t *pNtk2) {
 
     UnEq_SubNtk_t UnEqSubNtk = {pNtkNew1, pNtkNew2};
 
+    Vec_PtrFree(vNamedNodes);
+    Vec_PtrFree(vCorrNodes);
+    Vec_PtrFree(vColNodes1);
+    Vec_PtrFree(vColNodes2);
+
     return UnEqSubNtk;
 }
 
