@@ -47,3 +47,10 @@ void PrintAllObj(Abc_Ntk_t *pNtk, int fVerbose) {
         }
     }
 }
+
+void WriteVerilog(Abc_Ntk_t *pNtk, char *FileName) {
+    if (!Abc_NtkIsAigNetlist(pNtk))
+        pNtk = Abc_NtkToNetlist(pNtk);
+
+    Io_WriteVerilog(pNtk, FileName, 0);
+}

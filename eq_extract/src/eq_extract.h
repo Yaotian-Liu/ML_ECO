@@ -29,5 +29,6 @@ Abc_Obj_t *FindNodeByName(const char *nodeName, Abc_Ntk_t *pNtk);
 int HasName(Abc_Obj_t *pNode, Abc_Ntk_t *pNtk);
 int HasCorrNode(Abc_Obj_t *pNode);
 void PrintAllObj(Abc_Ntk_t *pNtk, int fVerbose);
+void WriteVerilog(Abc_Ntk_t *pNtk, char *FileName);
 
 #endif
